@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 import Login from './pages/Login';
 import UserList from './userManagement/users/UserList';
 import AppHeader from './components/AppHeader'; // Header with Elon Musk + Logout
-
+import { ToastContainer } from 'react-toastify';
 const { Content } = Layout;
 
 // Layout wrapper to conditionally show header
@@ -22,14 +22,18 @@ const AppLayout = ({ children }) => {
 
 function App() {
   return (
-    <Router basename="/user-list-app">
-      <AppLayout>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/users" element={<UserList />} />
-        </Routes>
-      </AppLayout>
-    </Router>
+    <>
+      <Router basename="/user-list-app">
+        <AppLayout>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/users" element={<UserList />} />
+          </Routes>
+        </AppLayout>
+      </Router>
+      {/* Toast container */}
+      <ToastContainer position="top-right" autoClose={3000} theme="colored" />
+    </>
   );
 }
 

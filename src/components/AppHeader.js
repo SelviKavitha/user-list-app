@@ -2,12 +2,14 @@ import React from 'react';
 import { Layout } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
 
 const { Header } = Layout;
 
 const AppHeader = () => {
+  const navigate = useNavigate();
   return (
-    <Header style={{ backgroundColor: '#001626',height:'45px' }}>
+    <Header style={{ backgroundColor: '#001626', height: '45px' }}>
       <div className="container-fluid d-flex justify-content-end align-items-center gap-3 text-white" style={{ height: '45px' }}>
         <div className="fw-semibold fs-6">Elon Musk</div>
 
@@ -20,7 +22,7 @@ const AppHeader = () => {
             height: 25,
             cursor: 'pointer',
           }}
-          onClick={() => window.location.href = '/'}
+          onClick={() => navigate('/')}
         >
           <LogoutOutlined style={{ color: '#fff', fontSize: 16 }} />
         </div>

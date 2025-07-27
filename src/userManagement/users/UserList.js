@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import UserCard from '../../components/UserCard';
 import { addUser, deleteUser, editUser, fetchUsers, toggleView } from '../../app/userSlice';
-import { Table, Button, Input, Modal, Form, message } from 'antd';
+import { Table, Button, Input, Modal, Form, message, Spin } from 'antd';
 import { SearchOutlined, CloseCircleFilled } from '@ant-design/icons';
 import { TableOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { toast } from 'react-toastify';
 
 const UserList = () => {
   const dispatch = useDispatch();
@@ -17,19 +18,28 @@ const UserList = () => {
   const [editingUser, setEditingUser] = useState(null);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState(null);
-
   const [form] = Form.useForm();
-  const [view, setView] = useState('table'); // or 'table'
+  const [view, setView] = useState('table');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!token) {
       navigate('/');
       return;
     }
+
+    setLoading(true); // start loading
     dispatch(fetchUsers());
-  }, [dispatch, token, navigate]);
-  const filteredUsers = items.filter((user) =>
-    `${user.first_name} ${user.last_name} ${user.email}`
+
+    const timer = setTimeout(() => {
+      setLoading(false); // stop loading after 3s
+    }, 3000);
+
+    return () => clearTimeout(timer); // cleanup
+  }, [dispatch]);
+
+  const filteredUsers = items?.filter((user) =>
+    `${user?.first_name} ${user?.last_name} ${user?.email}`
       .toLowerCase()
       .includes(searchText.toLowerCase())
   );
@@ -43,16 +53,19 @@ const UserList = () => {
   const handleSubmitUser = (values) => {
     if (editingUser) {
       dispatch(editUser({ ...editingUser, ...values }));
+      toast.success('User updated successfully');
     } else {
       dispatch(addUser({ id: Date.now(), ...values }));
+      toast.success('User created successfully');
     }
     setIsModalOpen(false);
     form.resetFields();
     setEditingUser(null);
   };
+
   const handleDelete = (userId) => {
     dispatch(deleteUser(userId));
-    message.success('User deleted');
+    toast.error('User deleted successfully');
   };
 
   useEffect(() => {
@@ -104,11 +117,21 @@ const UserList = () => {
 
 
 
-  if (status === 'loading') return <p>Loading users...</p>;
+  if (loading) {
+    return (
+      <div className="custom-loader-container">
+        <div className="custom-spinner"></div>
+        <p>Loading users...</p>
+      </div>
+    );
+  }
+
+
+
+
 
   return (
     <div style={{ padding: 24 }}>
-      {/* Toolbar */}
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
         <div>
           <div style={{ display: 'flex', gap: 0 }}>
@@ -280,9 +303,6 @@ const UserList = () => {
       >
         <p>Are you sure you want to delete this user?</p>
       </Modal>
-
-
-
     </div>
   );
 };

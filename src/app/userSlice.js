@@ -7,7 +7,7 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
       'x-api-key': 'reqres-free-v1',
     },
   });
-  return response.data.data;
+  return response?.data?.data;
 });
 
 

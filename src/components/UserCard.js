@@ -17,13 +17,8 @@ const UserCard = ({ user, onEdit, onDelete }) => {
   return (
     <div className="col-lg-3 col-sm-6 mb-4 d-flex justify-content-center">
       <div className="user-card-wrapper w-100 rounded">
-
-
         <div className="user-card-hover position-relative">
-          <Card
-            className="text-center w-100"
-            bordered
-            hoverable
+          <Card className="text-center w-100" hoverable
             style={{
               padding: 16,
               boxShadow: '0 2px 5px rgba(0,0,0,0.05)',
@@ -44,9 +39,6 @@ const UserCard = ({ user, onEdit, onDelete }) => {
             </div>
           </div>
         </div>
-
-
-
       </div>
     </div>
   );

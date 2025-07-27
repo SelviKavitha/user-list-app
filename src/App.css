@@ -32,17 +32,52 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
+
+.custom-loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.custom-spinner {
+  width: 50px;
+  height: 50px;
+  border: 6px solid #e0e0e0;
+  border-top: 6px solid #1890ff; /* AntD blue */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+
 .user-card-wrapper {
   position: relative;
   transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
 .user-card-wrapper:hover {
-  background-color: rgba(0, 0, 0, 0.03); /* light hover bg */
+  background-color: rgba(0, 0, 0, 0.03);
+  /* light hover bg */
 }
 
 .hover-center-icons {
@@ -50,7 +85,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex; 
+  display: flex;
   gap: 16px;
   opacity: 0;
   pointer-events: none;
@@ -62,6 +97,7 @@
   opacity: 1;
   pointer-events: auto;
 }
+
 .user-card-hover {
   position: relative;
   z-index: 1;
@@ -83,7 +119,8 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background-color: #6c757d; /* Default background color (gray) */
+  background-color: #6c757d;
+  /* Default background color (gray) */
   transition: background-color 0.3s ease;
 }
 
@@ -94,10 +131,8 @@
 .delete-icon {
   background-color: #f5222d;
 }
+
 .user-card-hover:hover .ant-card {
-  background-color: #BDBDBD !important; 
-  opacity: 0.85; 
+  background-color: #BDBDBD !important;
+  opacity: 0.85;
 }
-
-
-
